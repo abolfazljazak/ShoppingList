@@ -46,15 +46,15 @@ class Shopping:
         Returns:
             None
         """
-        if item in self.basket:
-            logger.warning(f'This is a duplicate {item.name}')
-            raise DuplicateProductError(f'This is a duplicate {item.name}')
+        for product in self.basket:
+            if product['name'] == item.name:
+                logger.warning(f'This is a duplicate {item.name}')
+                raise DuplicateProductError(f'This is a duplicate {item.name}')
 
-        else:
-            logger.debug(f"Adding `{item.name}` to user's basket.")
-            self.basket.append({'name': item.name, 'number': number, 'price': item.price})
-            print(f'`{item.name}` is added to the basket.')
-            return self.basket
+        logger.debug(f"Adding `{item.name}` to user's basket.")
+        self.basket.append({'name': item.name, 'number': number, 'price': item.price})
+        print(f'`{item.name}` is added to the basket.')
+        return self.basket
 
     def remove_item(self, item: Product):
         """

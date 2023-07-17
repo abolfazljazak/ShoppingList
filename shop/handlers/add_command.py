@@ -4,7 +4,7 @@ from shop.utils.classes import Shopping
 from shop.models import get_available_products
 from shop.helper.type_hint import Basket, Product, Quantity
 from shop.helper.const import EXIT_COMMANDS
-from shop.helper.exception import ProductNameError, ProductDoesNotExist
+from shop.helper.exception import ProductNameError, ProductDoesNotExist, DuplicateProductError
 from shop.utils.funcs import (
     add_item,
     is_valid_item,
@@ -52,6 +52,8 @@ def handle_add_command(basket: Basket):
             except ProductNameError as e:
                 show_error(e)
             except ProductDoesNotExist as e:
+                show_error(e)
+            except DuplicateProductError as e:
                 show_error(e)
             except Exception as e:
                 logger.critical(e, exc_info=True)
